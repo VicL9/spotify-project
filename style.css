@@ -1,9 +1,16 @@
 html {
-  background-color: rgb(47, 47, 47);
-  color: rgb(133, 170, 201);
-  font-family: sans-serif;}
+  background-color: #1e1b1c;
+  font-family: sans-serif;
+  color: pink;
+}
 
-p  {
-  margin: 20 10; 
-  padding: 10 300;
+#trackAmount {
+  width: 10%;
+}
+
+#artistImages img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
 }

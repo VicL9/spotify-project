@@ -11,7 +11,6 @@ if (!code) {
     const topSongs = await getTopSongs(accessToken, 5);
     const topArtists = await getTopArtists(accessToken, 5);
 
-
     populateUI(profile, currentlyPlaying, topSongs, topArtists);
 }
 
@@ -130,5 +129,17 @@ function populateUI(profile, currentlyPlaying, topSongs, topArtists) {
     
     for (let i = 0; i < topArtists.items.length; i++) {
         document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
+    }
+
+    // top artists images
+    for (let i = 0; i < topArtists.items.length; i++) {
+        document.getElementById("artistImages").innerHTML += 
+        "<li><span>" + topArtists.items[i].name + 
+        "<br></span><img src=\"" + topArtists.items[i].images[0].url + "\"/>" + "</li>";
+    }
+
+    //top genres -- this gives the genre of the top artists respectively
+    for (let i = 0; i < topArtists.items.length; i++) {
+        document.getElementById("genreList").innerHTML += "<li><span>" + topArtists.items[i].genres[0] + "</span></li>";
     }
 }
