@@ -128,7 +128,7 @@ function populateUI(profile, currentlyPlaying, topSongs, topArtists) {
         document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
     }
     
-    for (let i = 0; i < topArtists.items.length + 1; i++) {
+    for (let i = 0; i < topArtists.items.length; i++) {
         document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
     }
 }
