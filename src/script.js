@@ -1,17 +1,26 @@
 const clientId = config.MY_KEY; // Replace with your client ID
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
+var num = 5;
+var ran = false;
+
+var profile;
+var currentlyPlaying;
+var topSongs;
+var topArtists;
+
+const inputElement = document.getElementById("myInput");
 
 if (!code) {
     redirectToAuthCodeFlow(clientId);
 } else {
     const accessToken = await getAccessToken(clientId, code);
-    const profile = await fetchProfile(accessToken);
-    const currentlyPlaying = await getCurrentlyPlayingTrack(accessToken);
-    const topSongs = await getTopSongs(accessToken, 5);
-    const topArtists = await getTopArtists(accessToken, 5);
+    profile = await fetchProfile(accessToken);
+    currentlyPlaying = await getCurrentlyPlayingTrack(accessToken);
+    topSongs = await getTopSongs(accessToken, 50);
+    topArtists = await getTopArtists(accessToken, 50);
 
-    populateUI(profile, currentlyPlaying, topSongs, topArtists);
+    populateUI();
 }
 
 export async function redirectToAuthCodeFlow(clientId) {
@@ -106,40 +115,48 @@ async function getTopArtists(token, amount) {
     return await result.json();
 }
 
-function populateUI(profile, currentlyPlaying, topSongs, topArtists) {
-    document.getElementById("displayName").innerText = profile.display_name;
-    if (profile.images[0]) {
-        const profileImage = new Image(200, 200);
-        profileImage.src = profile.images[0].url;
-        document.getElementById("avatar").appendChild(profileImage);
-        // document.getElementById("imgUrl").innerText = profile.images[0].url;
+function populateUI() {
+    if (!ran){
+        document.getElementById("displayName").innerText = profile.display_name;
+        if (profile.images[0]) {
+            const profileImage = new Image(200, 200);
+            profileImage.src = profile.images[0].url;
+            document.getElementById("avatar").appendChild(profileImage);
+        }
+        document.getElementById("id").innerText = profile.id;
+        document.getElementById("trackName").innerText = currentlyPlaying.item.name;
+
+        ran = true;
     }
-    document.getElementById("id").innerText = profile.id;
-    // document.getElementById("email").innerText = profile.email;
-    // document.getElementById("uri").innerText = profile.uri;
-    // document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
-    // document.getElementById("url").innerText = profile.href;
-    // document.getElementById("url").setAttribute("href", profile.href);
 
-    document.getElementById("trackName").innerText = currentlyPlaying.item.name;
-
-    for (let i = 0; i < topSongs.items.length; i++) {
+    document.getElementById("songList").innerHTML = "";
+    for (let i = 0; i < num; i++) {
         document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
     }
     
-    for (let i = 0; i < topArtists.items.length; i++) {
+    document.getElementById("artistList").innerHTML = "";
+    for (let i = 0; i < num; i++) {
         document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
     }
 
+    document.getElementById("artistImages").innerHTML = "";
     // top artists images
-    for (let i = 0; i < topArtists.items.length; i++) {
+    for (let i = 0; i < num; i++) {
         document.getElementById("artistImages").innerHTML += 
         "<li><span>" + topArtists.items[i].name + 
         "<br></span><img src=\"" + topArtists.items[i].images[0].url + "\"/>" + "</li>";
     }
 
+    document.getElementById("genreList").innerHTML = "";
     //top genres -- this gives the genre of the top artists respectively
-    for (let i = 0; i < topArtists.items.length; i++) {
+    for (let i = 0; i < num; i++) {
         document.getElementById("genreList").innerHTML += "<li><span>" + topArtists.items[i].genres[0] + "</span></li>";
     }
 }
+
+inputElement.addEventListener("input", function() {
+  const inputValue = this.value;
+  num = inputValue;
+
+  populateUI();
+});
