@@ -119,7 +119,7 @@ function populateUI() {
     if (!ran){
         document.getElementById("displayName").innerText = profile.display_name;
         if (profile.images[0]) {
-            const profileImage = new Image(200, 200);
+            const profileImage = new Image(100, 100);
             profileImage.src = profile.images[0].url;
             document.getElementById("avatar").appendChild(profileImage);
         }
