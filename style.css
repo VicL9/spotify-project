@@ -18,6 +18,7 @@ ul {
 .artist-grid {
   display: grid;
   place-self: center;
+  justify-content: center;
   /* grid-template-columns: repeat(5, 10px); */
   grid-template-columns: 100px 100px 100px 100px 100px;
   gap: 10px;

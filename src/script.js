@@ -6,11 +6,23 @@ var ran = false;
 
 var profile;
 var currentlyPlaying;
+var topSongsShortTerm;
+var topSongsMediumTerm;
+var topSongsLongTerm;
+var topArtistsShortTerm;
+var topArtistsMediumTerm;
+var topArtistsLongTerm;
+
 var topSongs;
 var topArtists;
 
-const inputElement = document.getElementById("myInput");
-const buttonElement = document.getElementById("submitBtn");
+const numInput = document.getElementById("myInput");
+const numButton = document.getElementById("submitBtn");
+
+const shortTermButton = document.getElementById("shortTerm");
+const mediumTermButton = document.getElementById("mediumTerm");
+const longTermButton = document.getElementById("longTerm");
+
 
 if (!code) {
     redirectToAuthCodeFlow(clientId);
@@ -18,8 +30,19 @@ if (!code) {
     const accessToken = await getAccessToken(clientId, code);
     profile = await fetchProfile(accessToken);
     currentlyPlaying = await getCurrentlyPlayingTrack(accessToken);
-    topSongs = await getTopSongs(accessToken, 50);
-    topArtists = await getTopArtists(accessToken, 50);
+    topSongsShortTerm = await getTopSongs(accessToken, 50, "short_term");
+    topSongsMediumTerm = await getTopSongs(accessToken, 50, "medium_term");
+    topSongsLongTerm = await getTopSongs(accessToken, 50, "long_term");
+    topArtistsShortTerm = await getTopArtists(accessToken, 50, "short_term");
+    topArtistsMediumTerm = await getTopArtists(accessToken, 50, "medium_term");
+    topArtistsLongTerm = await getTopArtists(accessToken, 50, "long_term");
+
+    topSongs = topSongsShortTerm;
+    topArtists = topArtistsShortTerm;
+
+    console.log(topSongsShortTerm);
+    console.log(topSongs);
+
 
     populateUI();
 }
@@ -96,8 +119,8 @@ async function getCurrentlyPlayingTrack(token) {
     return await result.json();
 }
 
-async function getTopSongs(token, amount) {
-    let endpoint = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=" + amount;
+async function getTopSongs(token, amount, time_range) {
+    let endpoint = "https://api.spotify.com/v1/me/top/tracks?time_range=" + time_range + "&limit=" + amount;
 
     const result = await fetch(endpoint, {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -106,8 +129,8 @@ async function getTopSongs(token, amount) {
     return await result.json();
 }
 
-async function getTopArtists(token, amount) {
-    let endpoint = "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=" + amount;
+async function getTopArtists(token, amount, time_range) {
+    let endpoint = "https://api.spotify.com/v1/me/top/artists?time_range=" + time_range + "&limit=" + amount;
 
     const result = await fetch(endpoint, {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -136,12 +159,6 @@ function populateUI() {
     for (let i = 0; i < num; i++) {
         document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
     }
-    
-    // document.getElementById("artistList").innerHTML = "";
-    // for (let i = 0; i < num; i++) {
-    //     document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
-    // }
-
 
     // actually top artists info!
     document.getElementById("artistImages").innerHTML = "";
@@ -177,9 +194,31 @@ function populateUI() {
     }
 }
 
-buttonElement.addEventListener("click", function() {
-  const inputValue = inputElement.value;
+numButton.addEventListener("click", function() {
+  const inputValue = numInput.value;
   num = inputValue;
 
   populateUI();
 });
+
+shortTermButton.addEventListener("click", function() {
+    topSongs = topSongsShortTerm;
+    topArtists = topArtistsShortTerm;
+  
+    populateUI();
+  });
+
+mediumTermButton.addEventListener("click", function() {
+    topSongs = topSongsMediumTerm;
+    topArtists = topArtistsMediumTerm;
+  
+    populateUI();
+});
+
+longTermButton.addEventListener("click", function() {
+    topSongs = topSongsLongTerm;
+    topArtists = topArtistsLongTerm;
+  
+    populateUI();
+});
+
