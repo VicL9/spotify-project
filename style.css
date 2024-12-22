@@ -2,10 +2,18 @@ html {
   background-color: #1e1b1c;
   font-family: sans-serif;
   color: pink;
+  text-align: center;
+  margin: auto 0;
 }
 
-ul {
-  list-style-type: none;
+header {
+  text-align: center;
+  margin: auto 0;
+}
+
+button {
+  background-color: lightblue;
+  margin: 10px;
 }
 
 /* artist grid display */
@@ -15,47 +23,64 @@ ul {
   gap: 10px;
 }
 
-.artist-grid {
+.artist-grid{
   display: grid;
   place-self: center;
   justify-content: center;
-  /* grid-template-columns: repeat(5, 10px); */
   grid-template-columns: 100px 100px 100px 100px 100px;
   gap: 10px;
 }
 
-.artist-card {
+.artist-card{
   text-align: center;
 }
 
-/* .artist-card img {
-  width: 100px;
-  height: 100px;
-
-} */
-
-.artist-card p {
+.artist-card p, .track-card p{
   font-size: 12px;
   color:aliceblue;
 }
 
-/* 
-#id {
-  color: gray;
-} */
+.track-grid {
+  display: grid;
+  place-self: center;
+  justify-content: center;
+  grid-template-columns: 100px;
+  gap: 10px;
+}
+
+.track-card {
+  display: flex;
+  text-align: left;
+  align-items: center;
+  width: 800px;
+}
+
+
+.track-card p{
+  font-size: 12px;
+  color:aliceblue;
+  /* text-align: center; */
+  margin: 20px;
+}
 
 #avatar {
   border-radius: 20px;
 }
 
-#trackAmount {
-  width: 10%;
+#trackImages img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-#artistImages img {
+#artistImages img{
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 10px;
 }
 
+#myInput {
+  width: 92px;
+}

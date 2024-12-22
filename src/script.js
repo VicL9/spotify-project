@@ -149,15 +149,74 @@ function populateUI() {
             document.getElementById("avatar").appendChild(profileImage);
         }
         document.getElementById("id").innerText = "@" + profile.id;
-        document.getElementById("trackName").innerText = currentlyPlaying.item.name;
+        document.getElementById("trackName").innerText = currentlyPlaying.item.name + " - " + currentlyPlaying.item.artists[0].name;
 
         ran = true;
     }
 
-    // top songs info!
-    document.getElementById("songList").innerHTML = "";
+    // // top songs info!
+    // document.getElementById("songList").innerHTML = "";
+    // for (let i = 0; i < num; i++) {
+    //     document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
+    // }
+
+   // actually top songs info!
+   document.getElementById("trackImages").innerHTML = "";
+   // top track images
+   for (let i = 0; i < num; i++) {
+       // track card containing img and track name
+       const trackCard = document.createElement("div");
+       trackCard.classList.add("track-card");
+
+       // num track
+       const numTrack = document.createElement("p");
+       numTrack.style.fontSize = "30px"
+       numTrack.textContent = i+1 + ".";
+
+
+       // track img 
+       const img = document.createElement("img");
+       img.src = topSongs.items[i].album.images[0].url;
+       img.alt = topSongs.items[i].name;
+
+       // track name
+       const name = document.createElement("p");
+       name.textContent = topSongs.items[i].name + " - " + topSongs.items[i].artists[0].name;
+
+       // add img and name to card
+       trackCard.appendChild(numTrack);
+       trackCard.appendChild(img);
+       trackCard.appendChild(name);
+
+       document.getElementById("trackImages").appendChild(trackCard);
+   }
+
+
+       // actually top artists info!
+    document.getElementById("artistImages").innerHTML = "";
+    // top artists images
     for (let i = 0; i < num; i++) {
-        document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
+        // artist card containing img and artist name
+        const artistCard = document.createElement("div");
+        artistCard.classList.add("artist-card");
+
+        // artist img 
+        const img = document.createElement("img");
+        img.src = topArtists.items[i].images[0].url;
+        img.alt = topArtists.items[i].name;
+
+        // artist name
+        const name = document.createElement("p");
+        name.textContent = i+1 + ". " + topArtists.items[i].name;
+
+        // add img and name to card
+        artistCard.appendChild(img);
+        artistCard.appendChild(name);
+
+        document.getElementById("artistImages").appendChild(artistCard);
+        // document.getElementById("artistImages").innerHTML += 
+        // "<img src=\"" + topArtists.items[i].images[0].url + "\"/>";
+        
     }
 
     // actually top artists info!

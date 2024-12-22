@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>My Spotify Profile</title>
+        <title>Spotify Stats</title>
         <script src="src/script.js" type="module"></script>
         <script type='text/javascript' src='config.js'></script>
         <link href="style.css" rel="stylesheet">
@@ -10,30 +10,43 @@
     <body>
       <!-- <h1>Display your Spotify profile data</h1> -->
 
-      <div class="header">
+      <!-- <div class="header"> -->
+      <header>
         <section id="profile">
         <h2>Logged in as <span id="displayName"></span></h2>
         <span id="avatar"></span>
         
         <p><span id="id"></span></p>
         <p>Currently Playing: <span id="trackName"></span></p>
-      </div>
+      </header>
+      <!-- </div> -->
 
       <!-- desired # shown -->
-      <input type="text" id="myInput">
+      <input type="text" id="myInput" placeholder="enter #">
+
+      <br>
       <button type="button" id="submitBtn">show da stats!</button>
+
+      <br>
 
       <button type="button" id="shortTerm">1 Month</button>
       <button type="button" id="mediumTerm">6 Months</button>
       <button type="button" id="longTerm">All Time</button>
 
-      <p>Top Songs: </p>
-      <ol id="songList">
+      <p>Top Songs</p>
+      <ol id="songList"></ol> 
 
-      </ol> 
-      <p>Top Artists:</p>
-      <ol id="artistList"></ol>
+      <!-- top tracks images grid -->
+      <div class="tracks-container">
+        <div id = "trackImages" class="track-grid">
+        </div>
+      </div>
+       <!-- top tracks images grid -->
+
+
+      <p>Top Artists</p>
       
+      <ol id="artistList"></ol>      
       <!-- top artists images grid -->
       <div class="artist-container">
         <div id = "artistImages" class="artist-grid">
