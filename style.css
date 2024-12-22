@@ -4,6 +4,49 @@ html {
   color: pink;
 }
 
+ul {
+  list-style-type: none;
+}
+
+/* artist grid display */
+.container {
+  display: grid;
+  width: 500px;
+  gap: 10px;
+}
+
+.artist-grid {
+  display: grid;
+  place-self: center;
+  /* grid-template-columns: repeat(5, 10px); */
+  grid-template-columns: 100px 100px 100px 100px 100px;
+  gap: 10px;
+}
+
+.artist-card {
+  text-align: center;
+}
+
+/* .artist-card img {
+  width: 100px;
+  height: 100px;
+
+} */
+
+.artist-card p {
+  font-size: 12px;
+  color:aliceblue;
+}
+
+/* 
+#id {
+  color: gray;
+} */
+
+#avatar {
+  border-radius: 20px;
+}
+
 #trackAmount {
   width: 10%;
 }
@@ -14,3 +57,4 @@ html {
   object-fit: cover;
   border-radius: 10px;
 }
+

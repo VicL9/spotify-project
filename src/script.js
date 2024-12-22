@@ -10,6 +10,7 @@ var topSongs;
 var topArtists;
 
 const inputElement = document.getElementById("myInput");
+const buttonElement = document.getElementById("submitBtn");
 
 if (!code) {
     redirectToAuthCodeFlow(clientId);
@@ -116,35 +117,57 @@ async function getTopArtists(token, amount) {
 }
 
 function populateUI() {
-    if (!ran){
+    if (!ran) {
         document.getElementById("displayName").innerText = profile.display_name;
         if (profile.images[0]) {
             const profileImage = new Image(100, 100);
             profileImage.src = profile.images[0].url;
+            profileImage.style.borderRadius = "50%";
             document.getElementById("avatar").appendChild(profileImage);
         }
-        document.getElementById("id").innerText = profile.id;
+        document.getElementById("id").innerText = "@" + profile.id;
         document.getElementById("trackName").innerText = currentlyPlaying.item.name;
 
         ran = true;
     }
 
+    // top songs info!
     document.getElementById("songList").innerHTML = "";
     for (let i = 0; i < num; i++) {
         document.getElementById("songList").innerHTML += "<li><span>" + topSongs.items[i].name + "</span></li>";
     }
     
-    document.getElementById("artistList").innerHTML = "";
-    for (let i = 0; i < num; i++) {
-        document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
-    }
+    // document.getElementById("artistList").innerHTML = "";
+    // for (let i = 0; i < num; i++) {
+    //     document.getElementById("artistList").innerHTML += "<li><span>" + topArtists.items[i].name + "</span></li>";
+    // }
 
+
+    // actually top artists info!
     document.getElementById("artistImages").innerHTML = "";
     // top artists images
     for (let i = 0; i < num; i++) {
-        document.getElementById("artistImages").innerHTML += 
-        "<li><span>" + topArtists.items[i].name + 
-        "<br></span><img src=\"" + topArtists.items[i].images[0].url + "\"/>" + "</li>";
+        // artist card containing img and artist name
+        const artistCard = document.createElement("div");
+        artistCard.classList.add("artist-card");
+
+        // artist img 
+        const img = document.createElement("img");
+        img.src = topArtists.items[i].images[0].url;
+        img.alt = topArtists.items[i].name;
+
+        // artist name
+        const name = document.createElement("p");
+        name.textContent = i+1 + ". " + topArtists.items[i].name;
+
+        // add img and name to card
+        artistCard.appendChild(img);
+        artistCard.appendChild(name);
+
+        document.getElementById("artistImages").appendChild(artistCard);
+        // document.getElementById("artistImages").innerHTML += 
+        // "<img src=\"" + topArtists.items[i].images[0].url + "\"/>";
+        
     }
 
     document.getElementById("genreList").innerHTML = "";
@@ -154,8 +177,8 @@ function populateUI() {
     }
 }
 
-inputElement.addEventListener("input", function() {
-  const inputValue = this.value;
+buttonElement.addEventListener("click", function() {
+  const inputValue = inputElement.value;
   num = inputValue;
 
   populateUI();

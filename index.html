@@ -10,14 +10,18 @@
     <body>
       <!-- <h1>Display your Spotify profile data</h1> -->
 
-      <section id="profile">
-      <h2>Logged in as <span id="displayName"></span></h2>
-      <span id="avatar"></span>
-      
-      <p>User ID: <span id="id"></span></p>
-      <p>Currently Playing: <span id="trackName"></span></p>
+      <div class="header">
+        <section id="profile">
+        <h2>Logged in as <span id="displayName"></span></h2>
+        <span id="avatar"></span>
+        
+        <p><span id="id"></span></p>
+        <p>Currently Playing: <span id="trackName"></span></p>
+      </div>
 
+      <!-- desired # shown -->
       <input type="text" id="myInput">
+      <button type="button" id="submitBtn">show da stats!</button>
 
       <p>Top Songs: </p>
       <ol id="songList">
@@ -25,7 +29,13 @@
       </ol> 
       <p>Top Artists:</p>
       <ol id="artistList"></ol>
-      <ol id = "artistImages"></ol>
+      
+      <!-- top artists images grid -->
+      <div class="artist-container">
+        <div id = "artistImages" class="artist-grid">
+        </div>
+      </div>
+       <!-- top artists images grid -->
 
       <h3>Top Genres: </h3>
       <ol id = "genreList"></ol>
